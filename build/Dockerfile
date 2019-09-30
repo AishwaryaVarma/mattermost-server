@@ -31,11 +31,13 @@ RUN mkdir -p /mattermost/data /mattermost/plugins /mattermost/client/plugins \
 USER mattermost
 
 #Healthcheck to make sure container is ready
+
 HEALTHCHECK --interval=5m --timeout=3s \
   CMD curl -f http://localhost:8065/api/v4/system/ping || exit 1
 
 
 # Configure entrypoint and command
+
 COPY entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
 WORKDIR /mattermost
@@ -44,4 +46,5 @@ CMD ["mattermost"]
 EXPOSE 8065 8067 8074 8075
 
 # Declare volumes for mount point directories
+
 VOLUME ["/mattermost/data", "/mattermost/logs", "/mattermost/config", "/mattermost/plugins", "/mattermost/client/plugins"]
